@@ -1,16 +1,17 @@
 import os, sys
 
 ## Find path of the script then find the path of parent folder and add it to system path ##
-file_path = os.path.abspath(__file__)
-app_path = os.path.dirname(os.path.dirname(file_path))
-sys.path.append(app_path)
+script_path = os.path.abspath(__file__)
+app_run_path = os.path.dirname(os.path.dirname(script_path))
+sys.path.append(app_run_path)
 
 ## use common functions to initalize global variable ##
 import utilities.common_functions as cf
-cf.init(app_path)
+cf.init(app_run_path)
+print('Application run path set as :', app_run_path)
+
 cf.get_config()
 cf.get_current_datetime()
-print('Application path set as :', app_path)
 print('Current Time in PST:', cf.gvar.current_datetime_pst)
 
 logfile_name = f'example_{cf.gvar.current_date_pst}.log'
