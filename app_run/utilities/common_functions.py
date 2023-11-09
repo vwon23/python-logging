@@ -29,10 +29,10 @@ def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
 
-    app_path = os.path.dirname(gvar.dname)
-    #app_path = config.get('Paths', 'HOME_DIR')
+    gvar.app_path = os.path.dirname(gvar.dname)
+    #gvar.app_path = config.get('Paths', 'HOME_DIR')
 
-    gvar.log_path = os.path.join(app_path, 'logs')
+    gvar.log_path = os.path.join(gvar.app_path, 'logs')
     #gvar.log_path = config.get('Paths', 'LOG_DIR')
 
 
@@ -47,9 +47,9 @@ def set_logger(loggername, filename):
     if not os.path.exists(gvar.log_path):
         os.makedirs(gvar.log_path)
         
-    logconfig_path = os.path.join(gvar.dname, 'config', 'logging.cfg')
-    logfile_path = os.path.join(gvar.log_path, filename)
-    logging.config.fileConfig(logconfig_path, defaults={'logfilename': logfile_path})
+    gvar.logconfig_path = os.path.join(gvar.dname, 'config', 'logging.cfg')
+    gvar.logfile_path = os.path.join(gvar.log_path, filename)
+    logging.config.fileConfig(gvar.logconfig_path, defaults={'logfilename': gvar.logfile_path})
     gvar.logger = logging.getLogger(loggername)
     return gvar.logger
 
