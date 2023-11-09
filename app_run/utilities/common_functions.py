@@ -29,7 +29,8 @@ def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
     gvar.home_path = config.get('Paths', 'HOME_DIR')
-    gvar.log_path = os.path.join(gvar.dname, 'logs')
+    #gvar.log_path = os.path.join(gvar.dname, 'logs')
+    gvar.log_path = config.get('Paths', 'LOG_DIR')
 
 
 def set_logger(loggername, filename):
