@@ -8,9 +8,9 @@ import pytz
 from pytz import timezone
 
 
-def init(app_path):
+def init(app_run_path):
     '''
-    creates global variable class to handle the variables across scripts and functions. Sets the script path as dnam in gvar
+    creates global variable class to handle the variables across scripts and functions. Sets the provided application run path as dnam in gvar
 
     Parameters
     ---------------
@@ -22,14 +22,17 @@ def init(app_path):
 
     global gvar
     gvar = global_variables()
-    gvar.dname = app_path
+    gvar.dname = app_run_path
 
 
 def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
-    gvar.home_path = config.get('Paths', 'HOME_DIR')
-    gvar.log_path = os.path.join(gvar.dname, 'logs')
+
+    app_path = os.path.dirname(gvar.dname)
+    #app_path = config.get('Paths', 'HOME_DIR')
+
+    gvar.log_path = os.path.join(app_path, 'logs')
     #gvar.log_path = config.get('Paths', 'LOG_DIR')
 
 
