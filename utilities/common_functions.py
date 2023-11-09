@@ -3,6 +3,10 @@ import datetime
 import configparser
 import logging, logging.config
 
+import datetime as dt
+import pytz
+from pytz import timezone
+
 
 
 def init(app_path):
@@ -32,3 +36,15 @@ def set_logger(name):
     logging.config.fileConfig(os.path.join(gvar.dname, 'config', 'logging.cfg'))
     gvar.logger = logging.getLogger(name)
     return gvar.logger
+
+
+def get_current_datetime():
+    ## UTC Time variables ##
+    gvar.current_utc = dt.datetime.now()
+    gvar.current_datetime_utc = gvar.current_utc.strftime("%Y-%m-%d %H:%M:%S")
+
+    ## PST Time variables
+    gvar.current_pst = dt.datetime.now().astimezone(timezone('US/Pacific'))
+    gvar.current_year_pst = gvar.current_pst.strftime("%Y")
+    gvar.current_date_pst = gvar.current_pst.strftime("%Y-%m-%d")
+    gvar.current_datetime_pst = gvar.current_pst.strftime("%Y-%m-%d %H:%M:%S")
