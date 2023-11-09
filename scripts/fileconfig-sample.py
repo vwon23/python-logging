@@ -8,9 +8,13 @@ sys.path.append(app_path)
 ## use common functions to initalize global variable ##
 import utilities.common_functions as cf
 cf.init(app_path)
-print('application path set as :', app_path)
+cf.get_config()
+cf.get_current_datetime()
+print('Application path set as :', app_path)
+print('Current Time in PST:', cf.gvar.current_datetime_pst)
 
-logger = cf.set_logger('data_pipeline')
+logfile_name = f'example_{cf.gvar.current_date_pst}.log'
+logger = cf.set_logger('data_pipeline', logfile_name)
 
 def add(x, y):
     """Add Function"""

@@ -8,7 +8,6 @@ import pytz
 from pytz import timezone
 
 
-
 def init(app_path):
     '''
     creates global variable class to handle the variables across scripts and functions. Sets the script path as dnam in gvar
@@ -30,11 +29,24 @@ def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
     gvar.home_path = config.get('Paths', 'HOME_DIR')
+    gvar.log_path = os.path.join(gvar.dname, 'logs')
 
 
-def set_logger(name):
-    logging.config.fileConfig(os.path.join(gvar.dname, 'config', 'logging.cfg'))
-    gvar.logger = logging.getLogger(name)
+def set_logger(loggername, filename):
+    '''
+    Sets logger based on selected loggername in logging.cfg. Outputs to provided filename
+
+    Parameters
+    ---------------
+    loggername, filename
+    '''
+    if not os.path.exists(gvar.log_path):
+        os.makedirs(gvar.log_path)
+        
+    logconfig_path = os.path.join(gvar.dname, 'config', 'logging.cfg')
+    logfile_path = os.path.join(gvar.log_path, filename)
+    logging.config.fileConfig(logconfig_path, defaults={'logfilename': logfile_path})
+    gvar.logger = logging.getLogger(loggername)
     return gvar.logger
 
 
