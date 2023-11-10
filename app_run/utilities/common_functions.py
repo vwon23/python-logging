@@ -34,7 +34,7 @@ def get_config():
 
     gvar.path_log = os.path.join(gvar.path_app, 'logs')
     gvar.path_logconfig = os.path.join(gvar.dname, 'config', 'logging.cfg')
-    #gvar.log_path = config.get('Paths', 'LOG_DIR')
+    #gvar.path_log = config.get('Paths', 'LOG_DIR')
 
 
 def set_logger(loggername, filename):
