@@ -8,7 +8,7 @@ import pytz
 from pytz import timezone
 
 
-def init(app_run_path):
+def init(path_app_run):
     '''
     creates global variable class to handle the variables across scripts and functions. Sets the provided application run path as dnam in gvar
 
@@ -22,17 +22,18 @@ def init(app_run_path):
 
     global gvar
     gvar = global_variables()
-    gvar.dname = app_run_path
+    gvar.dname = path_app_run
 
 
 def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
 
-    gvar.app_path = os.path.dirname(gvar.dname)
-    #gvar.app_path = config.get('Paths', 'HOME_DIR')
+    gvar.path_app = os.path.dirname(gvar.dname)
+    #gvar.path_app = config.get('Paths', 'HOME_DIR')
 
-    gvar.log_path = os.path.join(gvar.app_path, 'logs')
+    gvar.path_log = os.path.join(gvar.path_app, 'logs')
+    gvar.path_logconfig = os.path.join(gvar.dname, 'config', 'logging.cfg')
     #gvar.log_path = config.get('Paths', 'LOG_DIR')
 
 
@@ -44,12 +45,12 @@ def set_logger(loggername, filename):
     ---------------
     loggername, filename
     '''
-    if not os.path.exists(gvar.log_path):
-        os.makedirs(gvar.log_path)
+    if not os.path.exists(gvar.path_log):
+        os.makedirs(gvar.path_log)
         
-    gvar.logconfig_path = os.path.join(gvar.dname, 'config', 'logging.cfg')
-    gvar.logfile_path = os.path.join(gvar.log_path, filename)
-    logging.config.fileConfig(gvar.logconfig_path, defaults={'logfilename': gvar.logfile_path})
+
+    gvar.path_logfile = os.path.join(gvar.path_log, filename)
+    logging.config.fileConfig(gvar.path_logconfig, defaults={'logfilename': gvar.path_logfile})
     gvar.logger = logging.getLogger(loggername)
     return gvar.logger
 

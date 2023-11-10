@@ -1,14 +1,14 @@
 import os, sys
 
 ## Find path of the script then find the path of parent folder and add it to system path ##
-script_path = os.path.abspath(__file__)
-app_run_path = os.path.dirname(os.path.dirname(script_path))
-sys.path.append(app_run_path)
+path_script = os.path.abspath(__file__)
+path_app_run = os.path.dirname(os.path.dirname(path_script))
+sys.path.append(path_app_run)
 
 ## use common functions to initalize global variable ##
 import utilities.common_functions as cf
-cf.init(app_run_path)
-print(f'Application run path set as: {app_run_path}')
+cf.init(path_app_run)
+print(f'Application run path set as: {path_app_run}')
 
 cf.get_config()
 cf.get_current_datetime()
@@ -16,7 +16,7 @@ print(f'Current Time in PST: {cf.gvar.current_datetime_pst}')
 
 logfile_name = f'example_{cf.gvar.current_date_pst}.log'
 logger = cf.set_logger('data_pipeline', logfile_name)
-print(f'logs being written to {cf.gvar.logfile_path}')
+print(f'logs being written to {cf.gvar.path_logfile}')
 
 
 def add(x, y):
