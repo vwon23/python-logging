@@ -8,16 +8,15 @@ sys.path.append(path_app_run)
 ## use common functions to initalize global variable ##
 import utilities.common_functions as cf
 cf.init(path_app_run)
-print(f'Application run path set as: {path_app_run}')
 
 cf.get_config()
 cf.get_current_datetime()
-print(f'Current Time in PST: {cf.gvar.current_datetime_pst}')
 
 logname = 'example-log'
 logfile_name = f'{logname}_{cf.gvar.current_date_pst}.log'
 logger = cf.set_logger(logname, logfile_name)
-print(f'logs being written to {cf.gvar.path_logfile}')
+
+
 
 import employee_update
 

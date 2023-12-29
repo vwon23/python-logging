@@ -23,6 +23,7 @@ def init(path_app_run):
     global gvar
     gvar = global_variables()
     gvar.dname = path_app_run
+    print(f'Application run path set as: {path_app_run}')
 
 
 def get_config():
@@ -47,12 +48,15 @@ def set_logger(loggername, filename):
     '''
     if not os.path.exists(gvar.path_log):
         os.makedirs(gvar.path_log)
-        
 
     gvar.path_logfile = os.path.join(gvar.path_log, filename)
     logging.config.fileConfig(gvar.path_logconfig, defaults={'logfilename': gvar.path_logfile})
-    gvar.logger = logging.getLogger(loggername)
-    return gvar.logger
+
+    global logger
+    logger = logging.getLogger(loggername)
+    logger.info(f'logs being written to {gvar.path_logfile}')
+
+    return logger
 
 
 def get_current_datetime():
@@ -65,3 +69,5 @@ def get_current_datetime():
     gvar.current_year_pst = gvar.current_pst.strftime("%Y")
     gvar.current_date_pst = gvar.current_pst.strftime("%Y-%m-%d")
     gvar.current_datetime_pst = gvar.current_pst.strftime("%Y-%m-%d %H:%M:%S")
+
+    print(f'Current Time in PST: {gvar.current_datetime_pst}')
