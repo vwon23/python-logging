@@ -14,9 +14,12 @@ cf.get_config()
 cf.get_current_datetime()
 print(f'Current Time in PST: {cf.gvar.current_datetime_pst}')
 
-logfile_name = f'example_{cf.gvar.current_date_pst}.log'
-logger = cf.set_logger('data_pipeline', logfile_name)
+logname = 'example-log'
+logfile_name = f'{logname}_{cf.gvar.current_date_pst}.log'
+logger = cf.set_logger(logname, logfile_name)
 print(f'logs being written to {cf.gvar.path_logfile}')
+
+import employee_update
 
 
 def add(x, y):
