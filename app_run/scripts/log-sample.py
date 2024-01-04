@@ -1,5 +1,5 @@
 import logging
-import employee
+import app_run.utilities.employee as employee
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

@@ -18,7 +18,7 @@ logger = cf.set_logger(logname, logfile_name)
 
 
 
-import employee_update
+import utilities.employee_update
 
 
 def add(x, y):
