@@ -39,7 +39,7 @@ def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
 
-    gvar.env = os.environ['env']
+    #gvar.env = os.environ['env']
 
     ## path variables ##
     gvar.path_app = os.path.dirname(gvar.dname)
