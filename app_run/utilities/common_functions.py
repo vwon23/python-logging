@@ -8,13 +8,15 @@ import pytz
 from pytz import timezone
 
 
+
 def init(path_app_run):
     '''
     creates global variable class to handle the variables across scripts and functions. Sets the provided application run path as dnam in gvar
 
     Parameters
     ---------------
-    None
+    path_app_run: path
+        Directory path of app_run (e.g. app/app_run) returned from os.path.dir() function
     '''
     ## create a class to hold global variables ##
     class global_variables:
@@ -27,6 +29,13 @@ def init(path_app_run):
 
 
 def get_config():
+    '''
+    Adds variables to global variable gvar based on values derived from environment variables and config.cfg file
+
+    Parameters
+    ---------------
+    None
+    '''
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
 
@@ -40,14 +49,23 @@ def get_config():
 
 def set_logger(loggername, filename):
     '''
-    Sets logger based on selected loggername in logging.cfg. Outputs to provided filename
+    Sets logger based on selected loggername & Outputs to provided filename
 
     Parameters
     ---------------
-    loggername, filename
+    loggername: str
+        The name of logger to set as. (The log name will be searched in logging.cfg to check config setting)
+    filename: str
+        the name of filename to store logfile as
+
+    Returns
+    ---------------
+    logger
+        logger derived from logging.getLogger(loggername)
     '''
-    if not os.path.exists(gvar.path_log):
-        os.makedirs(gvar.path_log)
+    
+    # if not os.path.exists(gvar.path_log):
+    #     os.makedirs(gvar.path_log)
 
     gvar.path_logfile = os.path.join(gvar.path_log, filename)
     logging.config.fileConfig(gvar.path_logconfig, defaults={'logfilename': gvar.path_logfile})
@@ -61,6 +79,13 @@ def set_logger(loggername, filename):
 
 
 def get_current_datetime():
+    '''
+    Sets variables for current date/time values.
+
+    Parameters
+    ---------------
+    None
+    '''
     ## UTC Time variables ##
     gvar.current_utc = dt.datetime.now()
     gvar.current_datetime_utc = gvar.current_utc.strftime("%Y-%m-%d %H:%M:%S")
