@@ -39,12 +39,20 @@ def get_config():
     config = configparser.ConfigParser()
     config.read(os.path.join(gvar.dname, 'config', 'config.cfg'))
 
+    gvar.env = os.environ['env']
+
+    ## path variables ##
     gvar.path_app = os.path.dirname(gvar.dname)
     #gvar.path_app = config.get('Paths', 'HOME_DIR')
-
     gvar.path_log = os.path.join(gvar.path_app, 'logs')
     gvar.path_logconfig = os.path.join(gvar.dname, 'config', 'logging.cfg')
-    #gvar.path_log = config.get('Paths', 'LOG_DIR')
+    gvar.path_data = os.path.join(gvar.path_app, 'data')
+
+    ## create directories during run time
+    if not os.path.exists(gvar.path_log):
+        os.makedirs(gvar.path_log)
+    if not os.path.exists(gvar.path_data):
+        os.makedirs(gvar.path_data)
 
 
 def set_logger(loggername, filename):
