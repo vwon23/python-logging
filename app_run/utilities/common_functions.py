@@ -11,7 +11,7 @@ from pytz import timezone
 
 def init(path_app_run):
     '''
-    creates global variable class to handle the variables across scripts and functions. Sets the provided application run path as dnam in gvar
+    creates global variable class to handle the variables across scripts and functions. Sets the provided application run path as gvar.dname
 
     Parameters
     ---------------
@@ -77,8 +77,8 @@ def set_logger(loggername, filename):
 
     gvar.path_logfile = os.path.join(gvar.path_log, filename)
     logging.config.fileConfig(gvar.path_logconfig, defaults={'logfilename': gvar.path_logfile})
-
     gvar.logger = logging.getLogger(loggername)
+    
     global logger
     logger = logging.getLogger(__name__)
     logger.info(f'logs being written to {gvar.path_logfile}')
